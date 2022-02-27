@@ -1,19 +1,16 @@
-#!/usr/bin/env python3
+"""
+MIT License
+
+Copyright (c) 2022 Anubhav Singh(anubhav.singh.er@pm.me)
+"""
+
 import builtins
-# from pathlib import Path
 from argparse import ArgumentParser
-# from importlib import import_module
 from re import match
-# from subprocess import run
-# from os.path import join, isfile, isdir, dirname, realpath
-from os import getpid
 
-# LAPKT Imports
-from lapkt.run_planner import Run_planner, load_planner_config
+# lapkt Imports
+from .load_planner import load_planner_config
 
-# Parameters which must be set correctly
-
-# rel_validate_file = Path('bin/validate')
 # CWD = dirname(realpath(__file__))
 """
 NOTE
@@ -33,13 +30,20 @@ def store_value(args, config) -> None:
     :param config: planner run configuration
     :type config: dict
     """
-    config['planner'] = dict()
     for k in dir(args):
         if match(r'^[^_]\w*', k):
             config.setdefault(k, dict())['value'] = getattr(args, k)
 
 
-if __name__ == "__main__":
+def process_arguments(debug: bool = False) -> dict:
+    """parses command line arguments and generates a config to run
+
+    :param config: additional options for debug run
+    :type config: boolean
+    :return: run configuration
+    :rtype: dict
+    """
+
     parser_main = ArgumentParser(description="Process planner input")
     parser_sub = parser_main.add_subparsers(help='sub-command help')
 
@@ -66,9 +70,10 @@ if __name__ == "__main__":
             '--lapkt_instance_generator', action='store',
             nargs='?', default='Tarski',
             help='Choice of parser - Tarski<Default>,FD or FF')
-        parser.add_argument(
-            '--wait_debug', action='store_true', help='For' +
-            ' debugging, program waits for key press while user attaches gdb')
+        if(debug):
+            parser.add_argument(
+                '--wait_debug', action='store_true', help='For' +
+                ' debugging, program waits for key press while user attaches gdb')
         parser.set_defaults(planner=k)
         # Planner specific config
         for opt, parser_args in options.items():
@@ -92,24 +97,9 @@ if __name__ == "__main__":
         print("Use option '-h' for help")
         exit(0)
 
-    if args.wait_debug:
-        def exists_python_module(name):
-            from importlib.util import find_spec as find_module
-            try:
-                return bool(find_module(name))
-            except ImportError:
-                return False
-
-        def wait_debug(s):
-            print("PID =", getpid(), ' ; ', s)
-            input()
-
-        if(exists_python_module('lapkt.tarski')):
-            from lapkt.tarski import *
-        if(exists_python_module('lapkt.ff')):
-            from lapkt.ff import *
-
-        wait_debug('Press a key to begin run...')
+    if debug and args.wait_debug:
+        config['wait'] = True
 
     store_value(args, config)
-    run_status = Run_planner(config).solved
+
+    return config

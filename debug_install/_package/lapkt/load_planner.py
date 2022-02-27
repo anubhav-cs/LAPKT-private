@@ -1,19 +1,25 @@
+"""
+MIT License
+
+Copyright (c) 2022 Anubhav Singh(anubhav.singh.er@pm.me)
+"""
+
 from os import access, X_OK, environ, pathsep
 from contextlib import contextmanager
+from sre_constants import SUCCESS
 from time import time, process_time
 from sys import stdout
 from os.path import isfile, join, dirname, realpath
 from pathlib import Path
 
-import lapkt.planner as planner
+# lapkt imports
+from . import planner
 
 # External Libs
 from ruamel.yaml import YAML
 
 parent_folder = Path(__file__).parent.absolute()
 rel_config_file = Path('planner/lapkt_planner_config.yml')
-# PLANNER_CONFIG_PATH = "c:\\users\\zura\\appdata\\local\\programs\\python\\python310\\lib\\site-packages\\lapkt\\planner\\lapkt_planner_config.yml"
-# PLANNER_CONFIG_PATH = "/home/zura/.local/lib/python3.9/site-packages/lapkt/planner/lapkt_planner_config.yml" 
 PLANNER_CONFIG_PATH = join(parent_folder, rel_config_file)
 CWD = dirname(realpath(__file__))
 # -----------------------------------------------------------------------------#
@@ -55,7 +61,7 @@ def exists_exec(runfile, name):
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 
-class Run_planner:
+class Planner:
     """Container to run the planner
 
     :raises ValueError: [description]
@@ -73,43 +79,50 @@ class Run_planner:
     # process
     def __init__(self, config: dict):
         self.config = config
-        with time_taken('LAPKT_ALL_TASKS'):
-            self._spawn_container(config['planner']['value'])
-            self._configure_planner()
-            with time_taken('LAPKT_PARSE_GROUND_TASK'):
-                self._load_problem()
-            with time_taken('LAPKT_SOLVE_TASK'):
-                self._exec()
-            if config.get('validate', None) and config['validate']['value']:
-                retval = validate_plan(
-                    self.config['domain']['value'],
-                    self.config['problem']['value'],
-                    self.config['plan_file']['value'])
-                if retval == -1:
-                    print("Plan was not validated, since 'validate'" +
-                          " binary was not found")
-                else:
-                    self.solved = not retval
-                    out_status = "passed" if self.solved else "failed"
-                    print("'validate' check : Plan " + out_status)
+        self._spawn_container(config['planner']['value'])
+        self._configure_planner()
+        with time_taken('LAPKT_PARSE_GROUND_TASK'):
+            self._load_problem()
+    
+    def solve(self):
+        with time_taken('LAPKT_SOLVE_TASK'):
+            return self._exec()
+        
+    
+    def validate(self):
+        retval = validate_plan(
+            self.config['domain']['value'],
+            self.config['problem']['value'],
+            self.config['plan_file']['value'])
+        if retval == -1:
+            print("Plan was not validated, since 'validate'" +
+                  " binary was not found")
+        else:
+            self.solved = not retval
+            out_status = "passed" if self.solved else "failed"
+            print("'validate' check : Plan " + out_status)
 
     def _load_problem(self):
         """
         load problem from pddl files
         """
         if self.config['lapkt_instance_generator']['value'] == 'Tarski':
-            from lapkt.pddl.tarski import ground_generate_task as process_task
+            try:
+                from .pddl.tarski import ground_generate_task as process_task
+            except Exception:
+                print('Tarski PDDL translator is not installed!')
+                exit()
         elif self.config['lapkt_instance_generator']['value'] == 'FF':
             try:
-                from lapkt.pddl.ff import pddl_translate_ff as process_task
+                from .pddl.ff import pddl_translate_ff as process_task
             except Exception:
-                print('FF Translate is not installed!')
+                print('FF PDDL translator is not installed!')
                 exit()
         elif self.config['lapkt_instance_generator']['value'] == 'FD':
             try:
-                from lapkt.pddl.fd import default as process_task
+                from .pddl.fd import default as process_task
             except Exception:
-                print('FD Translate is not installed!')
+                print('FD translator is not installed!')
                 exit()
         else:
             # We can add options for procedurally generated problems here
@@ -163,7 +176,7 @@ class Run_planner:
             bool(not (self.config.get('no_match_tree',
                       None) and self.config['no_match_tree']['value'])))
         self.planner_instance.solve()
-        return 0
+        return SUCCESS
 
     def _spawn_container(self, name):
         """
@@ -174,17 +187,20 @@ class Run_planner:
             self.planner_instance = getattr(planner, name)()
         except Exception:
             raise ValueError(
-                "Either planner name, " + name +
-                ", is wrong or lapkt couldn't load it correctly")
+                "lapkt encountered error while loading the planner. " +
+                "Verify the planner name, " + name)
         return 0
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 
 def validate_plan(domain_f, problem_f, plan_f):
     """
-    Used to validate the plan
+    Used to validate the plan (requires val-wrapper pypi package)
     """
-    from val_wrapper import val_main
+    try:
+        from val_wrapper import val_main
+    except Exception:
+        return -1
     with time_taken('LAPKT_VALIDATE_SOL'):
         return val_main("Validate", [domain_f, problem_f, plan_f])
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
