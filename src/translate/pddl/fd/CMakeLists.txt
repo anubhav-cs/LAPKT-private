@@ -6,7 +6,7 @@ file(WRITE
 
 add_custom_target(copy_fd 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/external_package/fd_translate/
+    ${PROJECT_SOURCE_DIR}/submodules/fd_translate/
     ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/fd
 )
 add_dependencies(copy_fd copy_package)

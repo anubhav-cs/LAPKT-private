@@ -31,9 +31,6 @@
 #include <tarski_instantiator.hxx>
 #include <strips_prob.hxx>
 #include <pybind11/pybind11.h>
-#ifdef USE_FF
-#include <py_ff_to_aptk.hxx>
-#endif
 
 namespace py = pybind11;
 
@@ -71,7 +68,4 @@ PYBIND11_MODULE(pddl, m)
         .def(py::init<std::string, py::list &, Formula *,
                       py::list &, py::tuple &>())
         .def("publish", &Action::publish);
-#ifdef USE_FF
-    m.def("pddl_translate_ff", &aptk::FF_Parser::py_get_problem_description);
-#endif
 }

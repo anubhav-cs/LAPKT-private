@@ -1,8 +1,8 @@
 # Ignore .vscode settings
-.vscode/c_cpp_properties.json
-.vscode/tasks.json
-.history
-tmp/
+/.vscode/c_cpp_properties.json
+/.vscode/tasks.json
+/.history
+/tmp
 
 # Temporary files
 *.swp
@@ -18,7 +18,6 @@ execution.details
 /docs
 
 # Local directories 
-external_package/libff
 
 # Generated files
 external_build

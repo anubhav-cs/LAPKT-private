@@ -69,7 +69,7 @@ jobs:
         -DCMAKE_DOXYGEN_AWESOME_THEME=ON
         -DCMAKE_SPHINX_DOCS=ON
         -DCMAKE_STATIC_BOOST=ON
-        -DCMAKE_TESTING_ENABLED=ON
+        -DBUILD_CPP_TESTS=ON
         -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
@@ -161,7 +161,7 @@ jobs:
         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
-        -DCMAKE_TESTING_ENABLED=ON
+        -DBUILD_CPP_TESTS=ON
         -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
@@ -242,7 +242,7 @@ jobs:
         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
-        -DCMAKE_TESTING_ENABLED=ON
+        -DBUILD_CPP_TESTS=ON
         -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
@@ -336,7 +336,7 @@ jobs:
 #         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
 #         -DCMAKE_SPHINX_DOCS=OFF
 #         -DCMAKE_STATIC_BOOST=ON
-#         -DCMAKE_TESTING_ENABLED=ON
+#         -DBUILD_CPP_TESTS=ON
 #         -DCMAKE_C_FLAGS="-target arm64-apple-macos11"
 #         -DPY_VERSION="${{ matrix.py_version }}"
 
@@ -431,7 +431,7 @@ jobs:
 #         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
 #         -DCMAKE_SPHINX_DOCS=OFF
 #         -DCMAKE_STATIC_BOOST=ON
-#         -DCMAKE_TESTING_ENABLED=ON
+#         -DBUILD_CPP_TESTS=ON
 #         -DPY_VERSION="${{ matrix.py_version }}"
 
 #     - name: Build
@@ -524,7 +524,7 @@ jobs:
 #         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
 #         -DCMAKE_SPHINX_DOCS=OFF
 #         -DCMAKE_STATIC_BOOST=ON
-#         -DCMAKE_TESTING_ENABLED=ON
+#         -DBUILD_CPP_TESTS=ON
 #         -DPY_VERSION="${{ matrix.py_version }}"
 
 #     - name: Build

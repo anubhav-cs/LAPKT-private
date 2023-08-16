@@ -1,3 +1,12 @@
-[submodule "fd_translate"]
-	path = external_package/fd_translate
-	url = https://github.com/LAPKT-dev/fd_translate.git
+[submodule "submodules/fd_translate"]
+	path = submodules/fd_translate
+	url = https://github.com/LAPKT-dev/fd_translate
+[submodule "submodules/Catch2"]
+	path = submodules/Catch2
+	url = https://github.com/catchorg/Catch2.git
+[submodule "submodules/boost"]
+	path = submodules/boost
+	url = https://github.com/boostorg/boost.git
+[submodule "submodules/pybind11"]
+	path = submodules/pybind11
+	url = https://github.com/pybind/pybind11.git

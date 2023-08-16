@@ -1,17 +1,26 @@
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#------------ lapkt PROJECT cmake script ------------#
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+
+# Check version requirement
 cmake_minimum_required(VERSION 3.19)
 
+project(lapkt VERSION 2.0)
+
+
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#------------ SUPERBUILD/PREBUILD  script------------#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#---------- SECTION 1.0  PROJECT OPTIONS ------------#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
-# THIS SECTION MUST STAY AT THE TOP OF ROOT CMakeLists.txt
-# Use -DUSE_SUPERBUILD=OFF to skip the SECTION 0
+# include cmake modules
 
-# SUPERBUILD is ON by default but can be disabled by -DUSE_SUPERBUILD=OFF
-option(USE_SUPERBUILD "flag that a superbuild should be invoked" ON)
-message(STATUS "SUPERBUILD IS ${USE_SUPERBUILD}")
+# LOG
+message(STATUS "The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
+message(STATUS "Building lapkt in " ${CMAKE_BUILD_TYPE} " mode")
+
+#---- SECTION 1.1 CONFIGURE DEFAULT PARAMETER VALUES ----#
 
 # Set policies
 
@@ -25,45 +34,14 @@ else()
   cmake_policy(SET CMP0135 NEW)
 endif()
 
-if (USE_SUPERBUILD)
-  project(superbuild VERSION 1.0)
+# Set dependency path variables
 
-  # FLAG THE LOCAL BUILD SYSTEM
-  message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
-  if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    set(LINUX_BUILD ON)
-    message(STATUS  "LINUX_BUILD is starting")
-  elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(MACOS_BUILD ON)
-    message(STATUS  "MACOS_BUILD is starting")
-  elseif((${CMAKE_SYSTEM_NAME} MATCHES "Windows") AND MINGW)
-    set(WINDOWS_BUILD ON)
-    message(STATUS  "WINDOWS_BUILD is starting")
-  else()
-    message(FATAL_ERROR
-  "The build is only configured for Linux, Windows(MINGW), and Darwin(Macos)."
-    )
-  endif()
-  # Set pre_build user parameters
-  set(DEPS_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/../external_lib")
-  set(DEPS_DOWNLOAD_DIR "${PROJECT_BINARY_DIR}/../external_download")
-  set(DEPS_BUILD_DIR "${PROJECT_BINARY_DIR}/../external_build")
+set(DEPS_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/_deps/install")
+set(DEPS_BUILD_DIR "${PROJECT_BINARY_DIR}/_deps/build")
 
-  message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
-  add_subdirectory(cmake/SuperBuildLinux)
-  return()
-endif(USE_SUPERBUILD)
+message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
 
-
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#------------ lapkt PROJECT cmake script ------------#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-
-project(lapkt VERSION 2.0)
-
-# FLAG THE LOCAL BUILD SYSTEM
+# Determine the build system
 message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   set(LINUX_BUILD ON)
@@ -76,18 +54,12 @@ else()
 "The build is only configured for Linux, Windows(MINGW), and Darwin(Macos)."
   )
 endif()
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#---------- SECTION 1.0  PROJECT OPTIONS ------------#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
-# LOG
-message(STATUS "The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
-message(STATUS "Building lapkt in " ${CMAKE_BUILD_TYPE} " mode")
-
-#---- SECTION 1.1 CONFIGURE DEFAULT PARAMETER VALUES ----#
 set(CMAKE_CXX_STANDARD 17)
+
 # Global flag to cause add_library() to create shared libraries
 set(BUILD_SHARED_LIBS ON)
+
 # static link with stdc++ and libgcc
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   # using Clang
@@ -104,30 +76,16 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   # using Visual Studio C++
   message(WARNING "The build for MSVC hasn't been tested. Proceed with caution")
 endif()
+
 if(MINGW)
-  # set(CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -Wl,-Bstatic,--whole-archive -lpthread  -Wl,-Bdynamic,--no-whole-archive")
-  # set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -Wl,-Bstatic,--whole-archive -lpthread  -Wl,-Bdynamic,--no-whole-archive")
   set(CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -static -lpthread") 
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--allow-multiple-definition -static -lpthread")
 endif(MINGW)
-# The Find<Package>.cmake file are located here
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 
-#---- SECTION 1.2 Choose features to add to the lapkt library  ----#
-
-# Install FD pddl and include the wrapper over it which
-#   acts as a pipe between output of FD tarnslate and lapkt
-option(CMAKE_FD "Install FD pddl" ON)
-
-# Builds a wrapper over lapkt library and installs a python module which 
-# handles the intregration of Tarski grounder and lapkt library
-option(CMAKE_TARSKI "Build and install the extension for tarski" ON)
-
-# Create Sphinx Docs (pddld from Doxygen XML)
-option(GEN_SPHINX_DOCS "GEN_SPHINX_DOCS" OFF)
-
-# Create Doxygen html Docs
-option(GEN_DOXYGEN_DOCS "GEN_DOXYGEN_DOCS" OFF)
+#---- SECTION 1.2 Build Components  ----#
+option(BUILD_CPP_TESTS "BUILD_CPP_TESTS" ON)
+option(BUILD_PYTHON "BUILD_PYTHON" ON)
+option(BUILD_PYTHON_TESTS "BUILD_PYTHON_TESTS" ON)
 
 
 # https://stackoverflow.com/a/17032841/7248295
@@ -143,17 +101,12 @@ endfunction()
 #---- SECTION 2.0 - External packages/libraries -----#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
+# @todo This should only be called if BUILD_PYTHON is ON
 #---- Python  ----#
-# find_package(Python 3.6...<3.11  COMPONENTS Interpreter Development)
-# if(${Python_VERSION} GREATER 3.10 OR ${Python_VERSION} LESS 3.6)
-#     message(SEND_ERROR 
-#         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
-#         ${Python_VERSION})
-# endif()
+
 if(MACOS_BUILD)
   set(Python_FIND_FRAMEWORK "FIRST")
   set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
-  # set(ENV{DYLD_FRAMEWORK_PATH} "/Applications/Xcode_14.0.1.app/Contents/Developer/Library/Frameworks")
 endif(MACOS_BUILD)
 if(NOT DEFINED PY_VERSION)
   find_package(Python COMPONENTS Interpreter Development)
@@ -174,41 +127,58 @@ endif()
 message(STATUS "The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
 #---- Pybind11  ----#
-# MUST BE CALLED AFTER FINDPYTHON: CMake 3.12+ (3.15+ recommended, 3.18.2+ ideal) 
-# added a new module called FindPython that had a highly improved search algorithm 
-# and modern targets and tools. If you use FindPython, pybind11 will detect this 
-# and use the existing targets instead:
 
-#Fetch path to Pybind11
-execute_process(COMMAND ${Python_EXECUTABLE} -m pybind11 --cmakedir 
-  OUTPUT_VARIABLE PYBIND11_CMAKE_DIR
-  ERROR_VARIABLE PYBIND11_CMAKE_DIR_ERROR
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-  ERROR_STRIP_TRAILING_WHITESPACE
+message(STATUS "Building pybind11")
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/pybind11
+  -B ${DEPS_BUILD_DIR}/pybind11
+  -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
+  -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
+  -Dpybind11_SOURCE=${PROJECT_SOURCE_DIR}/submodules/pybind11
+  -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
 )
 
-if(PYBIND11_CMAKE_DIR_ERROR)
-  message(FATAL_ERROR "Failed to find pybind11 cmake directory from pip\n ERROR: ${PYBIND11_CMAKE_DIR_ERROR}")
-endif()
+execute_process(
+  COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/pybind11
+)
 
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PYBIND11_CMAKE_DIR})
-message(STATUS "PYBIND11 CMAKE_DIR PATH IS: ${PYBIND11_CMAKE_DIR}")
-message(STATUS "CMAKE_MODULE_PATH IS: ${CMAKE_MODULE_PATH}")
+set(pybind11_ROOT ${DEPS_INSTALL_PREFIX}/pybind11/)
 
-set(pybind11_ROOT ${PYBIND11_CMAKE_DIR})
 # set(PYBIND11_NOPYTHON ON)
 find_package(pybind11 REQUIRED
   # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
-  # PATHS ${PYBIND11_CMAKE_DIR} 
-  # NO_DEFAULT_PATH
+  PATHS ${pybind11_ROOT} 
+  NO_DEFAULT_PATH
 )
 
 #---- Boost ----#
+# Boost Configure and Build commands
+
+set(CMAKE_BOOST_BUILD_TYPE "Boost build - Release/Debug " CACHE STRING "Release")
+
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/boost
+    -B ${DEPS_BUILD_DIR}/boost
+    -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
+    -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
+    -DBOOST_SOURCE=${PROJECT_SOURCE_DIR}/submodules/boost
+    -DCMAKE_BOOST_BUILD_TYPE=${CMAKE_BOOST_BUILD_TYPE}
+)
+
+execute_process(
+    COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/boost
+)
+
 # LOGS
-message(STATUS "BOOST_ROOT is set to ${BOOST_ROOT}")
-message(STATUS "BOOST_INCLUDEDIR is set to ${BOOST_INCLUDEDIR}")
-message(STATUS "BOOST_LIBRARYDIR is set to ${BOOST_LIBRARYDIR}")
-message(STATUS "CMAKE_MODULE_PATH is set to ${CMAKE_MODULE_PATH}")
+
+set(Boost_ROOT ${DEPS_INSTALL_PREFIX}/boost)
+# set(BOOST_INCLUDEDIR ${Boost_ROOT}/include)
+# set(BOOST_LIBRARYDIR ${Boost_ROOT}/lib)
+
+message(STATUS "Boost_ROOT is set to ${Boost_ROOT}")
+# message(STATUS "BOOST_INCLUDEDIR is set to ${BOOST_INCLUDEDIR}")
+# message(STATUS "BOOST_LIBRARYDIR is set to ${BOOST_LIBRARYDIR}")
+# message(STATUS "CMAKE_MODULE_PATH is set to ${CMAKE_MODULE_PATH}")
 set(Boost_VERBOSE ON)
 set(Boost_DEBUG ON)
 
@@ -222,10 +192,7 @@ endif(CMAKE_STATIC_BOOST)
 message(STATUS "Boost_USE_STATIC_LIBS is ${Boost_USE_STATIC_LIBS}")
 message(STATUS "BOOST_PYTHON_STATIC_LIB is ${BOOST_PYTHON_STATIC_LIB}")
 
-# set(BOOST_ROOT C:/Boost)
-# set(BOOST_INCLUDEDIR ${BOOST_ROOT}/include)
-# set(BOOST_LIBRARYDIR ${BOOST_ROOT}/lib)
-# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "C:/Boost/lib/cmake/Boost-1.78.0")
+
 list(APPEND Boost_Required_Components
   program_options
   random
@@ -240,7 +207,24 @@ message(STATUS "THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 
 #---- Catch2 ----#
 
-if(CMAKE_TESTING_ENABLED)
+if(BUILD_CPP_TESTS)
+
+  message(STATUS "Building Catch2")
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/Catch2
+    -B ${DEPS_BUILD_DIR}/Catch2
+    -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
+    -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
+    -DCATCH2_SOURCE=${PROJECT_SOURCE_DIR}/submodules/Catch2
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+  )
+
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/Catch2
+  )
+
+  set(Catch2_ROOT ${DEPS_INSTALL_PREFIX}/Catch2)
+
   find_package(Catch2 3 REQUIRED
   # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
   # PATHS ${Catch2_ROOT} 
@@ -290,7 +274,7 @@ python extensions from VERSION specific Python shared libs.
 #[[
 The 'lapkt' library is a pure cxx library containing the core structures,
 and algorithms. 
-All non-pure extensions should link with the 'liblapkt.so' shared library. 
+All non-c++(py) extensions should link with the 'core' shared library. 
 This library should have minimal dependencies. 
 ]]
 
@@ -306,29 +290,15 @@ elseif(WINDOWS_BUILD)
   # set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
 elseif(MACOS_BUILD)
   message(STATUS "Setting up RPATH on macos build")
-  # message(STATUS "CMAKE_SKIP_RPATH TRUE")
-  # set(CMAKE_SKIP_RPATH TRUE)
-  # message(STATUS "CMAKE_MACOS_RPATH TRUE")
-  # set(CMAKE_MACOSX_RPATH TRUE)
-  # message(STATUS "CMAKE_INSTALL_NAME_DIR @executable_path")
-  # set(CMAKE_INSTALL_NAME_DIR @executable_path)
+
   message(STATUS "CMAKE_INSTALL_NAME_DIR @loader_path")
   set(CMAKE_INSTALL_NAME_DIR @loader_path)
-  # message(STATUS "CMAKE_BUILD_WITH_INSTALL_RPATH TRUE")
-  # set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
-  # message(STATUS "CMAKE_INSTALL_RPATH @executable_path")
-  # set(CMAKE_INSTALL_RPATH @executable_path)
-  # message(STATUS "CMAKE_INSTALL_RPATH @loader_path")
-  # set(CMAKE_INSTALL_RPATH @loader_path)
-  # message(STATUS "CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE")
-  # set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
 endif()
 
 add_library(core SHARED)
 
 # set_target_properties(core PROPERTIES
-#     #### CHECK IT - Doesn't work in Windows(MINGW)
+#     #### @todo - Doesn't work in Windows(MINGW)
 #   LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${REL_CORE_LIB_DIR}
 # )
 
@@ -347,7 +317,7 @@ endif()
 
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
-  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" # CHECK THIS FOR MACOS
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" #@todo CHECK THIS FOR MACOS
 )
 
 target_link_libraries(wrapper PUBLIC
@@ -398,7 +368,7 @@ target_link_libraries(planner PRIVATE
 add_subdirectory(src)
 
 # Unit tests
-if(CMAKE_TESTING_ENABLED)
+if(BUILD_CPP_TESTS)
   add_subdirectory(test)
 endif()
 

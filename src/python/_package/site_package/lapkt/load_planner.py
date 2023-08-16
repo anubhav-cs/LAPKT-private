@@ -177,17 +177,6 @@ class Planner:
                       None) and self.config['no_match_tree']['value'])))
         self.planner_instance.solve()
         
-        if self.config["anytime_fd"]['value'] != None:
-            with time_taken("Running FD"):
-                fd_cmd =  "python3 {} --plan-file {} --portfolio-bound {} {} {}".format(
-                    self.config["anytime_fd"]['value'],
-                    self.config["plan_file"]['value'], 
-                    int(self.planner_instance.plan_cost), 
-                    self.config['domain']['value'], 
-                    self.config['problem']['value']
-                )
-                system(fd_cmd)
-            
         return SUCCESS
 
     def _spawn_container(self, name):

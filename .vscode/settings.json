@@ -16,7 +16,7 @@
         "-DGEN_DOXYGEN_DOCS=OFF",  // Default: OFF
         "-DGEN_DOXYSPHINX_DOCS=OFF",  // Default: OFF
         "-DCMAKE_STATIC_BOOST=ON",  // Default: ON
-        "-DCMAKE_TESTING_ENABLED=OFF",  // Default: OFF
+        "-DBUILD_CPP_TESTS=ON",  // Default: OFF
         // By default cmake would link to the latest version of the python library
         // "-DPY_VERSION=3.9" // Configure the build for a specific version
     ],
