@@ -24,6 +24,14 @@ The build requires development tools specific to the operating system that you a
 
 1. To build LAPKT, run the following command from the root of the lapkt source directory
 
+        git submodule update --init submodules/boost submodules/Catch2 submodules/pybind11
+
+        cd submodules/boost
+
+        git submodule update --init tools/boost_install tools/build tools/check_build tools/cmake libs/config libs/headers libs/numeric libs/program_options libs/random
+
+        cd ../../
+
         cmake -Bbuilds/build -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release -DUSE_SUPERBUILD=ON
 
         cmake --build builds/build -j4 [--target clean](optional)
