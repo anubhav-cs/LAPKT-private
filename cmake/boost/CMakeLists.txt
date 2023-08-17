@@ -16,10 +16,8 @@ else()
 endif()
 message(STATUS "Building Boost in " ${BOOST_VARIANT} " mode")
 
-
 # LOGS
-message(STATUS "Boost is built using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
-message(STATUS "The boost build command is : ")
+# message(STATUS "Boost is built using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
 
 # Determine the build system
 message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
@@ -61,10 +59,10 @@ else()
   )
 endif()
 
-file(WRITE ${DEPS_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
+# file(WRITE ${DEPS_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
 
 list(APPEND BUILD_COMMAND
-    --user-config=${DEPS_BUILD_DIR}/boost/user-config.jam
+    # --user-config=${DEPS_BUILD_DIR}/boost/user-config.jam
     --build-dir=${DEPS_BUILD_DIR}/boost/build
     --with-program_options --with-random
     --prefix=${DEPS_INSTALL_PREFIX}/boost install
