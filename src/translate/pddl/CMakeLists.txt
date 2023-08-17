@@ -8,13 +8,9 @@
 add_subdirectory(pybinding)
 
 
-if(CMAKE_TARSKI)
-    add_subdirectory(tarski)
-endif(CMAKE_TARSKI)
+add_subdirectory(tarski)
 
-if(CMAKE_FD)
-    add_subdirectory(fd)
-endif(CMAKE_FD)
+add_subdirectory(fd)
 
 
 

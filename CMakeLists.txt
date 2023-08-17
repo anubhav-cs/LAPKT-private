@@ -363,7 +363,7 @@ add_subdirectory(src)
 
 # Unit tests
 if(BUILD_CPP_TESTS)
-  add_subdirectory(test)
+  add_subdirectory(ctest)
 endif()
 
 #------------ SECTION 3.3  Install -------------#
