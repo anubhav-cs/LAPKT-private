@@ -33,7 +33,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 NWN_Mockup::NWN_Mockup(int random_seed)
 {
-	srandom(random_seed);
+	srand(random_seed);
 }
 
 NWN_Mockup::~NWN_Mockup()
@@ -51,7 +51,7 @@ void NWN_Mockup::setup_nav_graph(int w, int h, float p)
 		nodes[i].resize(w);
 		for (int j = 0; j < w; j++)
 		{
-			float k = (float)random() / (float)RAND_MAX;
+			float k = (float)rand() / (float)RAND_MAX;
 			nodes[i][j] = (k < p ? -1 : 0);
 			if (nodes[i][j] == -1)
 				continue;
@@ -124,8 +124,8 @@ void NWN_Mockup::add_items(int n_items)
 	for (int k = 0; k < n_items; k++)
 	{
 		std::stringstream ss;
-		ss << item_types[random() % 14] << "_" << item_adjectives[random() % 12];
-		unsigned loc = random() % m_nav_graph.vertices().size();
+		ss << item_types[rand() % 14] << "_" << item_adjectives[rand() % 12];
+		unsigned loc = rand() % m_nav_graph.vertices().size();
 		m_items.push_back(Item(ss.str(), loc));
 	}
 }
@@ -238,7 +238,7 @@ void NWN_Mockup::make_init(aptk::STRIPS_Problem &prob)
 {
 	aptk::Fluent_Vec I;
 	// MRJ: Choose starting agent location at random
-	unsigned n_k = random() % m_nav_graph.vertices().size();
+	unsigned n_k = rand() % m_nav_graph.vertices().size();
 	I.push_back(m_nav_graph.vertices()[n_k]->at_fluent());
 	// MRJ: Add fluents corresponding to items actual locations
 	for (unsigned k = 0; k < m_items.size(); k++)
@@ -256,7 +256,7 @@ void NWN_Mockup::make_goal(int n_goal_items, int n_goal_locs,
 		unsigned item;
 		do
 		{
-			item = random() % m_items.size();
+			item = rand() % m_items.size();
 		} 
 		while
 		(std::find(goal_items.begin(), goal_items.end(), item) != goal_items.end());
@@ -266,12 +266,12 @@ void NWN_Mockup::make_goal(int n_goal_items, int n_goal_locs,
 
 	std::vector<unsigned> goal_locs;
 	for (int i = 0; i < n_goal_locs; i++)
-		goal_locs.push_back(random() % m_nav_graph.vertices().size());
+		goal_locs.push_back(rand() % m_nav_graph.vertices().size());
 
 	aptk::Fluent_Vec G;
 	for (unsigned k = 0; k < goal_items.size(); k++)
 	{
-		unsigned dst_loc_idx = random() % goal_locs.size();
+		unsigned dst_loc_idx = rand() % goal_locs.size();
 		G.push_back(m_items[goal_items[k]].loc_fluents[goal_locs[dst_loc_idx]]);
 	}
 	aptk::STRIPS_Problem::set_goal(prob, G);
