@@ -24,11 +24,11 @@ The build requires development tools specific to the operating system that you a
 
 1. To build LAPKT, run the following command from the root of the lapkt source directory
 
-        git submodule update --init submodules/boost submodules/Catch2 submodules/pybind11
+        git submodule update --jobs 20 --init
 
         cd submodules/boost
 
-        git submodule update --init tools/auto_index tools/bcp tools/boost_install tools/build tools/check_build tools/cmake tools/docca tools/inspect tools/litre tools/quickbook  libs/any libs/array libs/assert libs/bind libs/config libs/core libs/detail libs/dynamic_bitset libs/function libs/integer libs/io libs/iterator libs/lexical_cast libs/range libs/smart_ptr libs/static_assert libs/system libs/throw_exception libs/tokenizer libs/type_traits libs/utility
+        git submodule update --init --jobs 20 tools/auto_index tools/bcp tools/boost_install tools/build tools/check_build tools/cmake  tools/docca tools/inspect tools/litre tools/quickbook libs/any libs/array libs/assert libs/bind libs/circular_buffer libs/config libs/container libs/container_hash libs/core libs/concept_check libs/conversion libs/describe libs/detail libs/dynamic_bitset libs/function libs/functional libs/function_types libs/fusion libs/headers libs/heap libs/integer libs/intrusive libs/io libs/iterator libs/lexical_cast libs/move libs/mpl libs/mp11 libs/numeric libs/optional libs/parameter libs/predef libs/program_options libs/preprocessor libs/random libs/range libs/regex libs/smart_ptr libs/static_assert libs/system libs/throw_exception libs/tokenizer libs/type_index libs/typeof libs/type_traits libs/tuple libs/utility libs/variant libs/variant2 libs/winapi 
 
         cd ../../
 
