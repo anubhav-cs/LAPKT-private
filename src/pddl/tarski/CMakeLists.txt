@@ -13,14 +13,14 @@ install(
     FILES
         tarski_instantiator.hxx
     DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/${REL_PYEXT_INC_DIR}/translate
+        ${CMAKE_INSTALL_PREFIX}/${REL_PYEXT_INC_DIR}/pddl/
     COMPONENT
         lapkt EXCLUDE_FROM_ALL
 )
 
 # Copy the Tarski Handlers into the build directory
 file(COPY 
-        ${PROJECT_SOURCE_DIR}/src/translate/pddl/tarski/tarski_util.py
+        ${PROJECT_SOURCE_DIR}/src/pddl/tarski/tarski_util.py
     DESTINATION 
         ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/tarski/
 )
