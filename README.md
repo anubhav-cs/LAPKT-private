@@ -88,7 +88,3 @@ Approximate Novelty Search in which we iteratively run approximate BFWS(f5) with
 [Agile 2 Apptainer configuration](Apptainer.ApxNoveltyTarski)
 
 	apptainer build ApxNoveltyTarski.sif  Apptainer.ApxNoveltyTarski
-
-[Satisficing Apptainer configuration](Apptainer.ApxNoveltyAnytime)
-
-	apptainer build ApxNoveltyAnytime.sif  Apptainer.ApxNoveltyAnytime

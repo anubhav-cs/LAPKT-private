@@ -66,15 +66,10 @@ The build process involves three step, configure, build, and install. Each step 
 | `CMAKE_C_COMPILER` | specify a gcc version, tested with `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11` `gcc-12` |
 | `CMAKE_INSTALL_PREFIX` | installation path |
 | `CMAKE_BUILD_TYPE` | Release for production and Debug for debugging the source|
-| `USE_SUPERBUILD` | builds all dependencies from source (makes the build independent of any pre-existing installation of dependencies), it is set to ON by default |
-| `CMAKE_FD` | add fast-downward parser and grounder to the package, default ON |
-| `CMAKE_TARSKI` | add tarski parser and grounder to the package, default ON |
-| `GEN_DOXYGEN_DOCS` | automatically generate doxygen html docs from source and md files, default OFF |
-| `GEN_DOXYSPHINX_DOCS` | automatically generate sphinx rtd theme html docs, default OFF |
 | `CMAKE_STATIC_BOOST` | Static link boost, default ON |
 | `BUILD_CPP_TESTS` | build ctest executables, default OFF |
-| `BOOST_ROOT`| Path to Boost installtion (required if `USE_SUPERBUILD=OFF` is not used), default "" |
-| `CATCH2_ROOT`| Path to Catch2 installtion (required if `USE_SUPERBUILD=OFF` is not used), default "" |
+| `Boost_ROOT`| Path to Boost installation(optional))|
+| `Catch2_ROOT`| Path to Catch2 installation (optional)|
 
 **Build step**
 
