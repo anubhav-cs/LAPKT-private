@@ -172,12 +172,12 @@ execute_process(
 # LOGS
 
 set(Boost_ROOT ${DEPS_INSTALL_PREFIX}/boost)
-# set(BOOST_INCLUDEDIR ${Boost_ROOT}/include)
-# set(BOOST_LIBRARYDIR ${Boost_ROOT}/lib)
+set(BOOST_INCLUDEDIR ${Boost_ROOT}/include)
+set(BOOST_LIBRARYDIR ${Boost_ROOT}/lib)
 
 message(STATUS "Boost_ROOT is set to ${Boost_ROOT}")
-# message(STATUS "BOOST_INCLUDEDIR is set to ${BOOST_INCLUDEDIR}")
-# message(STATUS "BOOST_LIBRARYDIR is set to ${BOOST_LIBRARYDIR}")
+message(STATUS "BOOST_INCLUDEDIR is set to ${BOOST_INCLUDEDIR}")
+message(STATUS "BOOST_LIBRARYDIR is set to ${BOOST_LIBRARYDIR}")
 # message(STATUS "CMAKE_MODULE_PATH is set to ${CMAKE_MODULE_PATH}")
 set(Boost_VERBOSE ON)
 set(Boost_DEBUG ON)
