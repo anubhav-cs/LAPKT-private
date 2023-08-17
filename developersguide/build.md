@@ -28,7 +28,7 @@ The build requires development tools specific to the operating system that you a
 
         cd submodules/boost
 
-        git submodule update --init tools/boost_install tools/build tools/check_build tools/cmake libs/config libs/headers libs/numeric libs/program_options libs/random
+        git submodule update --init tools/auto_index tools/bcp tools/boost_install tools/build tools/check_build tools/cmake tools/docca tools/inspect tools/litre tools/quickbook  libs/any libs/array libs/assert libs/bind libs/config libs/core libs/detail libs/dynamic_bitset libs/function libs/integer libs/io libs/iterator libs/lexical_cast libs/range libs/smart_ptr libs/static_assert libs/system libs/throw_exception libs/tokenizer libs/type_traits libs/utility
 
         cd ../../
 
