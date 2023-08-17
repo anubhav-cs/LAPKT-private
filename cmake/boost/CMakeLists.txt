@@ -38,7 +38,7 @@ if(WINDOWS_BUILD)
     cd tools/build && bootstrap.bat mingw
   )
   list(APPEND BUILD_COMMAND
-    ${DEPS_BUILD_DIR}/boost/src/tools/build/b2 -d0
+    ${BOOST_SOURCE}/tools/build/b2 -d0
     toolset=gcc 
   )
 elseif(MACOS_BUILD)
