@@ -278,9 +278,6 @@ All non-c++(py) extensions should link with the 'core' shared library.
 This library should have minimal dependencies. 
 ]]
 
-#---- Generate Source Documentation ----#
-add_subdirectory(cmake/docs)
-
 #---- DECLARE library targets and set properties ----#
 
 #---- core - pure cxx component ----#
