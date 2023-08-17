@@ -95,7 +95,7 @@ jobs:
         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=manylinux_2_31_x86_64
 
     - name: Pytest
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/pytest
       run: |
         pytest
         
@@ -193,7 +193,7 @@ jobs:
         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=manylinux_2_27_x86_64
 
     - name: Pytest
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/pytest
       run: |
         pytest
         
@@ -278,7 +278,7 @@ jobs:
         python setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=win_amd64
 
     - name: Pytest
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/pytest
       run: |
         pytest
 
