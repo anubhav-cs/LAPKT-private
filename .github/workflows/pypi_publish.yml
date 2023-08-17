@@ -29,6 +29,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
     - name: Remove previous builds if any
       run: | 
@@ -121,6 +123,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
     - name: Remove previous builds if any
       run: | 
@@ -214,6 +218,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
       
     - name: Set up Python ${{ matrix.py_version }}
       uses: actions/setup-python@v4
@@ -297,6 +303,8 @@ jobs:
 
 #     steps:
 #     - uses: actions/checkout@v3
+#       with:
+#         submodules: recursive
 
 #     - name: Remove previous builds if any
 #       run: | 
@@ -392,6 +400,8 @@ jobs:
 
 #     steps:
 #     - uses: actions/checkout@v3
+#       with:
+#         submodules: recursive
 
 #     - name: Remove previous builds if any
 #       run: | 
@@ -485,6 +495,8 @@ jobs:
 
 #     steps:
 #     - uses: actions/checkout@v3
+#       with:
+#         submodules: recursive
 
 #     - name: Remove previous builds if any
 #       run: | 
@@ -583,6 +595,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
       
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
