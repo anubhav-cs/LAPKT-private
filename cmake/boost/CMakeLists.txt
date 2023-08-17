@@ -21,6 +21,20 @@ message(STATUS "Building Boost in " ${BOOST_VARIANT} " mode")
 message(STATUS "Boost is built using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
 message(STATUS "The boost build command is : ")
 
+# Determine the build system
+message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  set(LINUX_BUILD ON)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set(MACOS_BUILD ON)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows" AND MINGW)
+  set(WINDOWS_BUILD ON)
+else()
+  message(FATAL_ERROR
+"The build is only configured for Linux, Windows(MINGW), and Darwin(Macos)."
+  )
+endif()
+
 if(WINDOWS_BUILD)
   list(APPEND CONFIGURE_COMMAND
     cd tools/build && bootstrap.bat mingw
