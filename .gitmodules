@@ -12,4 +12,4 @@
 	url = https://github.com/pybind/pybind11.git
 [submodule "pytest"]
 	path = pytest
-	url = git@github.com:LAPKT-dev/pytest.git
+	url = https://github.com/LAPKT-dev/pytest.git
