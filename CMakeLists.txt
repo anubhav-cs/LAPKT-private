@@ -251,13 +251,13 @@ list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 #------------ SECTION 3.1  CONFIG OPTIONS -------------#
 # PATHS relative to CMAKE_INSTALL_PREFIX and CMAKE_BINARY_DIR
 # lapkt cxx library
-set(REL_LAPKT_ROOT lapkt)
-set(REL_CMAKE_DIR ${REL_LAPKT_ROOT}/cmake)
+set(REL_LAPKT_ROOT corelib_cpp)
+set(REL_CMAKE_DIR ${REL_LAPKT_ROOT}/cmake/lapkt)
 # core and planner component
-set(REL_CORE_LIB_DIR ${REL_LAPKT_ROOT}/core/lib)
-set(REL_CORE_INC_DIR ${REL_LAPKT_ROOT}/core/include)
-set(REL_PYEXT_LIB_DIR ${REL_LAPKT_ROOT}/core/lib)
-set(REL_PYEXT_INC_DIR ${REL_LAPKT_ROOT}/core/include)
+set(REL_CORE_LIB_DIR ${REL_LAPKT_ROOT}/lib)
+set(REL_CORE_INC_DIR ${REL_LAPKT_ROOT}/include/lapkt)
+set(REL_PYEXT_LIB_DIR ${REL_LAPKT_ROOT}/lib)
+set(REL_PYEXT_INC_DIR ${REL_LAPKT_ROOT}/include/lapkt)
 # pypi package
 set(REL_PYPI_ROOT _package)
 set(REL_PYPI_LAPKT_ROOT ${REL_PYPI_ROOT}/site_package/lapkt)
@@ -371,7 +371,12 @@ if(BUILD_CPP_TESTS)
   add_subdirectory(ctest)
 endif()
 
-#------------ SECTION 3.3  Install -------------#
+
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#----------- SECTION 4.0  INSTALL CONFIG ------------#
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+
+#------------ SECTION 4.1  Install Libs -------------#
 
 # core
 install(TARGETS core 
@@ -404,12 +409,12 @@ install(TARGETS wrapper
 )
 # Allows the developers to use find_package(lapkt COMPONENT planner) 
 #   to link lapkt library from their cmake project
-install(
-  EXPORT      lapkt-wrapper-Targets
-  FILE        lapkt-wrapper-Targets.cmake
-  DESTINATION ${REL_CMAKE_DIR}
-  COMPONENT lapkt
-)
+# install(
+#   EXPORT      lapkt-wrapper-Targets
+#   FILE        lapkt-wrapper-Targets.cmake
+#   DESTINATION ${REL_CMAKE_DIR}
+#   COMPONENT lapkt
+# )
 # planner
 install(TARGETS planner
   EXPORT lapkt-planner-Targets
@@ -423,14 +428,14 @@ install(TARGETS planner
   INCLUDES DESTINATION    
     ${REL_PYEXT_INC_DIR}
 )
-# Allows the developers to use find_package(lapkt COMPONENT planner) 
-#   to link lapkt library from their cmake project
-install(
-  EXPORT      lapkt-planner-Targets
-  FILE        lapkt-planner-Targets.cmake
-  DESTINATION ${REL_CMAKE_DIR}
-  COMPONENT lapkt
-)
+# # Allows the developers to use find_package(lapkt COMPONENT planner) 
+# #   to link lapkt library from their cmake project
+# install(
+#   EXPORT      lapkt-planner-Targets
+#   FILE        lapkt-planner-Targets.cmake
+#   DESTINATION ${REL_CMAKE_DIR}
+#   COMPONENT lapkt
+# )
 # # pddl
 install(TARGETS pddl
   EXPORT lapkt-pddl-Targets
@@ -445,18 +450,14 @@ install(TARGETS pddl
 )
 # Allows the developers to use find_package(lapkt COMPONENT pddl) 
 #   to link lapkt library from their cmake project
-install(
-  EXPORT      lapkt-pddl-Targets
-  FILE        lapkt-pddl-Targets.cmake
-  DESTINATION ${REL_CMAKE_DIR}
-  COMPONENT lapkt
-)
+# install(
+#   EXPORT      lapkt-pddl-Targets
+#   FILE        lapkt-pddl-Targets.cmake
+#   DESTINATION ${REL_CMAKE_DIR}
+#   COMPONENT lapkt
+# )
 
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#----------- SECTION 4.0  INSTALL CONFIG ------------#
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-
-#---- SECTION 4.1 CMAKE EXPORT CONFIGURATION
+#---- SECTION 4.2 Install Configuration File
 
 ## Allow developers using the lapkt library to fetch information, including library version
 configure_file(${PROJECT_SOURCE_DIR}/cmake/lapkt_cmake_config.h.in 
@@ -508,15 +509,15 @@ install(DIRECTORY
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
 )
 
-install(PROGRAMS
-    ${PROJECT_SOURCE_DIR}/src/python/lapkt.py
-    DESTINATION ${CMAKE_SOURCE_DIR}/lapkt_package
-    COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
-)
+# install(PROGRAMS
+#     ${PROJECT_SOURCE_DIR}/src/python/lapkt.py
+#     DESTINATION ${CMAKE_SOURCE_DIR}/standalone_pkg
+#     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
+# )
 
 install(PROGRAMS
 ${PROJECT_SOURCE_DIR}/src/python/lapkt.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lapkt_package
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/standalone_pkg
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
 )
 
@@ -526,17 +527,17 @@ install(DIRECTORY
   DESTINATION ${REL_PYPI_LAPKT_ROOT}
   COMPONENT PYPACKAGE 
 )
-install(DIRECTORY
-  ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}
-  USE_SOURCE_PERMISSIONS
-  DESTINATION ${CMAKE_SOURCE_DIR}/lapkt_package
-  COMPONENT PYPACKAGE 
-)
+# install(DIRECTORY
+#   ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}
+#   USE_SOURCE_PERMISSIONS
+#   DESTINATION ${CMAKE_SOURCE_DIR}/standalone_pkg
+#   COMPONENT PYPACKAGE 
+# )
 
 install(DIRECTORY
   ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}
   USE_SOURCE_PERMISSIONS
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/lapkt_package
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/standalone_pkg
   COMPONENT PYPACKAGE
 )
 

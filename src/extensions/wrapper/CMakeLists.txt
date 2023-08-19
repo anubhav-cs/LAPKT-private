@@ -6,15 +6,15 @@ target_sources(wrapper
         h_1_callback.hxx
 )
 
-install(
-    FILES
-        py_strips_interface.hxx
-        h_1_callback.hxx
-    DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/extension
-    COMPONENT
-        lapkt EXCLUDE_FROM_ALL
-)
+# install(
+#     FILES
+#         py_strips_interface.hxx
+#         h_1_callback.hxx
+#     DESTINATION
+#         ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/extension
+#     COMPONENT
+#         lapkt EXCLUDE_FROM_ALL
+# )
 
 target_include_directories(wrapper
     PUBLIC

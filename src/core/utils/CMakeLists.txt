@@ -44,5 +44,5 @@ install(
     DESTINATION
         ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/utils
     COMPONENT
-        core
+        lapkt
 )

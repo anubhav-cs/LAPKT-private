@@ -36,11 +36,11 @@ The build requires development tools specific to the operating system that you a
 
         cmake --build builds/build -j4 [--target clean](optional)
 
-   This would create a package, `lapkt_package`, at the root of the source directory. Users can directly run/debug lapkt with the following command
+   This would create a package, `standalone_pkg`, at the root of the `Release` directory. Users can directly run/debug lapkt with the following command
 
-        cd <source_dir>
+        cd builds/Release
 
-        python3 lapkt_package/lapkt.py -h
+        python3 standalone_pkg/lapkt.py -h
 
 2. Install the built source code if you want to have system wide access (optional)
 

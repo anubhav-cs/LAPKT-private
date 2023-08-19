@@ -26,7 +26,7 @@ install(
         novelty_partition_1.hxx
         novelty_partition_2.hxx
     DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/node_eval/novelty
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/node_eval/novelty
     COMPONENT
         lapkt 
 )

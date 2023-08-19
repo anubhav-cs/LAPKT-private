@@ -26,7 +26,7 @@ Stage: run
 
 # # Copy planner binary and required files from Stage 1.
 %files from build
-    builds/Release/lapkt_package/
+    builds/Release/standalone_pkg/
 
 %post
     ## Install only dependencies for running the planner.
@@ -42,7 +42,7 @@ Stage: run
     PROBLEMFILE="$2"
     PLANFILE="$3"
 
-    python3 /builds/Release/lapkt_package/lapkt.py Approximate_BFWS \
+    python3 /builds/Release/standalone_pkg/lapkt.py Approximate_BFWS \
         --grounder FD --plan_file "$PLANFILE" \
         -d "$DOMAINFILE" \
         -p "$PROBLEMFILE" \

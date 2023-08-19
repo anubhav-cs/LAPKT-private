@@ -86,7 +86,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/core/engine/open_list.hxx
         ${PROJECT_SOURCE_DIR}/src/core/engine/reachability.hxx
     DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/engine
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/engine
     COMPONENT
         lapkt 
 )

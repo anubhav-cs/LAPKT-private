@@ -47,7 +47,7 @@ install(
     match_tree.hxx
     watched_lit_succ_gen.hxx
   DESTINATION
-    ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/model
+    ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/model
   COMPONENT
     lapkt 
 )

@@ -12,7 +12,7 @@
             "type": "python",
             "request": "launch",
             // "stopOnEntry": true,
-            "program": "${workspaceFolder}/lapkt_package/lapkt.py",
+            "program": "${workspaceFolder}/buids/Release/standalone_pkg/lapkt.py",
             "args": [
                 "Approximate_BFWS",
                 // "Approximate_IW",
@@ -81,7 +81,7 @@
             // "Windows with Python 3.10", "Set HOME in Environment variables manually"
             // "program": ${env:HOME}\\AppData\\Local\\Programs\\Python\\Python310\\python",
             "args": [
-                "${workspaceFolder}/lapkt_package/lapkt.py",
+                "${workspaceFolder}/builds/Release/standalone_pkg/lapkt.py",
                 "Approximate_BFWS",
                 // "Approximate_IW",
                 // "Approximate_RP_IW",
@@ -137,7 +137,7 @@
             // "Windows with Python 3.10", "Set HOME in Environment variables manually"
             // "program": ${env:HOME}\\AppData\\Local\\Programs\\Python\\Python310\\python",
             "args": [
-                "${workspaceFolder}/lapkt_package/lapkt.py",
+                "${workspaceFolder}/builds/Release/standalone_pkg/lapkt.py",
                 "Approximate_BFWS",
                 // "Approximate_IW",
                 // "Approximate_RP_IW",
