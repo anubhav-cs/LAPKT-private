@@ -9,7 +9,6 @@ cmake_minimum_required(VERSION 3.19)
 
 project(lapkt VERSION 2.0)
 
-
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #---------- SECTION 1.0  PROJECT OPTIONS ------------#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
@@ -126,24 +125,34 @@ message(STATUS "The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_M
 
 #---- Pybind11  ----#
 
-message(STATUS "Building pybind11")
-execute_process(
-  COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/pybind11
-  -B ${DEPS_BUILD_DIR}/pybind11
-  -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
-  -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
-  -Dpybind11_SOURCE=${PROJECT_SOURCE_DIR}/submodules/pybind11
-  -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-  -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
-  -DPYTHON_INCLUDE_DIR=${Python_INCLUDE_DIRS}
-  -DPYTHON_LIBRARY=${Python_LIBRARIES}
-)
+if(NOT DEFINED pybind11_ROOT)
+  message(STATUS "Building pybind11")
+  file(GLOB RESULT ${PROJECT_SOURCE_DIR}/submodules/pybind11/*)
+  list(LENGTH RESULT RES_LEN)
+  if(RES_LEN EQUAL 0)
+    message(FATAL_ERROR "LAPKT submodules have not been initialized, run - `git submodule update --jobs 20 --init --recurs
+ive` at the root of lapkt source")
+  endif()
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/pybind11
+    -B ${DEPS_BUILD_DIR}/pybind11
+    -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
+    -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
+    -Dpybind11_SOURCE=${PROJECT_SOURCE_DIR}/submodules/pybind11
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+    -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
+    -DPYTHON_INCLUDE_DIR=${Python_INCLUDE_DIRS}
+    -DPYTHON_LIBRARY=${Python_LIBRARIES}
+  )
 
-execute_process(
-  COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/pybind11
-)
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/pybind11
+  )
 
-set(pybind11_ROOT ${DEPS_INSTALL_PREFIX}/pybind11/)
+  set(pybind11_ROOT ${DEPS_INSTALL_PREFIX}/pybind11/)
+endif()
+
+message(STATUS "pybind11_ROOT: ${pybind11_ROOT}")
 
 # set(PYBIND11_NOPYTHON ON)
 find_package(pybind11 REQUIRED
@@ -155,9 +164,18 @@ find_package(pybind11 REQUIRED
 #---- Boost ----#
 # Boost Configure and Build commands
 
-set(CMAKE_BOOST_BUILD_TYPE "Boost build - Release/Debug " CACHE STRING "Release")
+if(NOT DEFINED Boost_ROOT)
 
-execute_process(
+  file(GLOB RESULT ${PROJECT_SOURCE_DIR}/submodules/boost/*)
+  list(LENGTH RESULT RES_LEN)
+  if(RES_LEN EQUAL 0)
+    message(FATAL_ERROR "LAPKT submodules have not been initialized, run - `git submodule update --jobs 20 --init --recurs
+ive` at the root of lapkt source")
+  endif()
+
+  set(CMAKE_BOOST_BUILD_TYPE "Boost build - Release/Debug " CACHE STRING "Release")
+
+  execute_process(
     COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/boost
     -B ${DEPS_BUILD_DIR}/boost
     -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
@@ -165,17 +183,17 @@ execute_process(
     -DBOOST_SOURCE=${PROJECT_SOURCE_DIR}/submodules/boost
     -DCMAKE_BOOST_BUILD_TYPE=${CMAKE_BOOST_BUILD_TYPE}
     -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
-)
+  )
 
-execute_process(
-    COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/boost
-)
+  execute_process(
+      COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/boost
+  )
 
-# LOGS
+  # LOGS
+  set(Boost_ROOT ${DEPS_INSTALL_PREFIX}/boost)
+endif()
 
-set(Boost_ROOT ${DEPS_INSTALL_PREFIX}/boost)
-
-message(STATUS "Boost_ROOT is set to ${Boost_ROOT}")
+message(STATUS "Boost_ROOT: ${Boost_ROOT}")
 
 # message(STATUS "CMAKE_MODULE_PATH is set to ${CMAKE_MODULE_PATH}")
 set(Boost_VERBOSE ON)
@@ -190,7 +208,6 @@ endif(CMAKE_STATIC_BOOST)
 
 message(STATUS "Boost_USE_STATIC_LIBS is ${Boost_USE_STATIC_LIBS}")
 message(STATUS "BOOST_PYTHON_STATIC_LIB is ${BOOST_PYTHON_STATIC_LIB}")
-
 
 list(APPEND Boost_Required_Components
   program_options
@@ -207,23 +224,30 @@ message(STATUS "THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 #---- Catch2 ----#
 
 if(BUILD_CPP_TESTS)
+  if(NOT DEFINED Catch2_ROOT)
+    message(STATUS "Building Catch2")
+    file(GLOB RESULT ${PROJECT_SOURCE_DIR}/submodules/Catch2/*)
+    list(LENGTH RESULT RES_LEN)
+    if(RES_LEN EQUAL 0)
+      message(FATAL_ERROR "LAPKT submodules have not been initialized, run - `git submodule update --jobs 20 --init --recurs
+ive` at the root of lapkt source")
+    endif()
+    execute_process(
+      COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/Catch2
+      -B ${DEPS_BUILD_DIR}/Catch2
+      -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
+      -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
+      -DCATCH2_SOURCE=${PROJECT_SOURCE_DIR}/submodules/Catch2
+      -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+      -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
+    )
 
-  message(STATUS "Building Catch2")
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -S ${PROJECT_SOURCE_DIR}/cmake/Catch2
-    -B ${DEPS_BUILD_DIR}/Catch2
-    -DDEPS_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}
-    -DDEPS_BUILD_DIR=${DEPS_BUILD_DIR}
-    -DCATCH2_SOURCE=${PROJECT_SOURCE_DIR}/submodules/Catch2
-    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-    -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
-  )
+    execute_process(
+      COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/Catch2
+    )
 
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} --build  ${DEPS_BUILD_DIR}/Catch2
-  )
-
-  set(Catch2_ROOT ${DEPS_INSTALL_PREFIX}/Catch2)
+    set(Catch2_ROOT ${DEPS_INSTALL_PREFIX}/Catch2)
+  endif()
 
   find_package(Catch2 3 REQUIRED
   # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
