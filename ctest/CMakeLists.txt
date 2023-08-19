@@ -22,6 +22,7 @@ add_subdirectory(common)
 
 # Test the problem model
 add_subdirectory(test_create_model)
+add_subdirectory(test_planner)
 include(CTest)
 
 # The Catch cmake file has the definition of catch_discover_tests method

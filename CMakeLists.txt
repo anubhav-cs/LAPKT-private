@@ -294,6 +294,10 @@ endif()
 
 add_library(core SHARED)
 
+target_link_libraries(core PRIVATE
+  ${Boost_LIBRARIES}
+)
+
 # set_target_properties(core PROPERTIES
 #     #### @todo - Doesn't work in Windows(MINGW)
 #   LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${REL_CORE_LIB_DIR}
@@ -319,7 +323,6 @@ set_target_properties(wrapper PROPERTIES
 
 target_link_libraries(wrapper PUBLIC
   core
-  ${Boost_LIBRARIES}
 )
 
 #---- Translate PDDL ----#
@@ -352,7 +355,6 @@ set_target_properties(planner PROPERTIES
 target_link_libraries(planner PRIVATE
   core
   wrapper
-  ${Boost_LIBRARIES}
 )
 
 # target_include_directories(planner PRIVATE

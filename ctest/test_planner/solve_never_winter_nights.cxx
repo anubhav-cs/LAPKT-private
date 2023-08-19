@@ -51,7 +51,7 @@
  * https://github.com/LAPKT-dev/LAPKT-public/blob/d54b68fcc67d5d75ea40b3921220c29f49c71814/examples/agnostic-examples/bfs/main.cxx
  *
  */
-TEST_CASE("Assembling Never Winter Nights!")
+TEST_CASE("Solving Never Winter Nights!")
 {
 
   std::cout << "BEGIN TEST_CASE(Assembling Never Winter Nights)" << std::endl;
