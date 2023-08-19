@@ -31,11 +31,11 @@ if __name__ == "__main__":
 
     if(config.get('wait', False)):
         # if(exists_python_module('lapkt.tarski')):
-        #     from _package.lapkt.fd import *
+        #     from _pip_installable_pkg.lapkt.fd import *
         # if(exists_python_module('lapkt.tarski')):
-        #     from _package.lapkt.tarski import *
+        #     from _pip_installable_pkg.lapkt.tarski import *
         # if(exists_python_module('lapkt.ff')):
-        #     from _package.lapkt.ff import *
+        #     from _pip_installable_pkg.lapkt.ff import *
         wait_debug('Press a key to begin run...')
 
     planner = Planner(config)

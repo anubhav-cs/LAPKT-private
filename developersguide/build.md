@@ -48,7 +48,7 @@ The build requires development tools specific to the operating system that you a
 
    Same can achieved with the pip install as well
         
-        python3 -m pip install --user  Release/_package/
+        python3 -m pip install --user  Release/_pip_installable_pkg/
 
    In Ubuntu, this installs the python script `lapkt_cmd.py` in local binary directory, typically at `$HOME/.local/bin/lapkt_cmd.py`, and `lapkt` library files into the python shared module directory, `$HOME/.local/lib/python<version>/site-packages/lapkt/`. 
 

@@ -4,7 +4,7 @@ By default the `cmake` scripts builds a `pypi` package. The steps to deploy `lap
 
 ## Pre-deployment steps
 
- - Update the lapkt package version in the file `src/python/_package/setup.py`
+ - Update the lapkt package version in the file `src/python_pkg/_pip_installable_pkg/setup.py`
  - Deploy the package to `https://test.pypi.org/`. This can be done through the Github Actions, using the [testpypi_publish](../.github/workflows/testpypi_publish.yml) workflow. The `testpypi_publish` needs to be triggered manually from the LAPKT repo at `github.com`.
  - If the deployment to `https://test.pypi.org/` was successful, then trigger the [test_testpypi_package](../.github/workflows/test_testpypi_package.yml) workflow, which would perform some end-to-end tests on the test pypi deployment. Else, debug and deploy to `test.pypi` until the deployment is successful.
 

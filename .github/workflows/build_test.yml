@@ -75,7 +75,7 @@ jobs:
         cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
-      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
     - name: CTest
       working-directory: ${{github.workspace}}/build
@@ -91,7 +91,7 @@ jobs:
 
     - name: Build Pypi Python Package
       run: |
-        cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+        cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=manylinux_2_31_x86_64
 
     - name: Pytest
@@ -173,7 +173,7 @@ jobs:
         cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
-      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
     - name: CTest
       working-directory: ${{github.workspace}}/build
@@ -189,7 +189,7 @@ jobs:
 
     - name: Build Pypi Python Package
       run: |
-        cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+        cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=manylinux_2_27_x86_64
 
     - name: Pytest
@@ -256,7 +256,7 @@ jobs:
         cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
-      run: python -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+      run: python -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
     - name: CTest
       working-directory: ${{github.workspace}}/build
@@ -274,7 +274,7 @@ jobs:
 
     - name: Build Pypi Python Package
       run: |
-        cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+        cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
         python setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=win_amd64
 
     - name: Pytest
@@ -356,7 +356,7 @@ jobs:
   #       cmake --build ${{github.workspace}}/build
 
   #   - name: Install Python Package
-  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
   #   - name: CTest
   #     working-directory: ${{github.workspace}}/build
@@ -374,7 +374,7 @@ jobs:
 
   #   - name: Build Pypi Python Package
   #     run: |
-  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
   #       python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_x86_64
 
   #   - name: Pytest
@@ -456,7 +456,7 @@ jobs:
   #       cmake --build ${{github.workspace}}/build
 
   #   - name: Install Python Package
-  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
   #   - name: CTest
   #     working-directory: ${{github.workspace}}/build
@@ -474,7 +474,7 @@ jobs:
 
   #   - name: Build Pypi Python Package
   #     run: |
-  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
   #       python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_arm64
 
   #   - name: Pytest
@@ -556,7 +556,7 @@ jobs:
 #         cmake --build ${{github.workspace}}/build
 
 #     - name: Install Python Package
-#       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+#       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
 #     - name: CTest
 #       working-directory: ${{github.workspace}}/build
@@ -574,7 +574,7 @@ jobs:
 
 #     - name: Build Pypi Python Package
 #       run: |
-#         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+#         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 #         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_x86_64
 
 #     - name: Pytest
@@ -658,7 +658,7 @@ jobs:
 #         cmake --build ${{github.workspace}}/build
 
 #     - name: Install Python Package
-#       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+#       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
 #     - name: CTest
 #       working-directory: ${{github.workspace}}/build
@@ -676,7 +676,7 @@ jobs:
 
 #     - name: Build Pypi Python Package
 #       run: |
-#         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+#         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 #         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_10_15_x86_64
 
 #     - name: Pytest
@@ -686,7 +686,7 @@ jobs:
     
 #     - name: Test lapkt installation
 #       run: |
-#         python3  ${{github.workspace}}/src/python/_package/script/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+#         python3  ${{github.workspace}}/src/python_pkg/_pip_installable_pkg/script/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
 #         cat plan.ipc
 
 #     - name: Lint with flake8

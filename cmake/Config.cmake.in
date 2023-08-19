@@ -2,10 +2,10 @@
 
 #include("${CMAKE_CURRENT_LIST_DIR}/lapktTargets.cmake")
 
-set(_supported_components core py_extension)
+set(_supported_components core)
 
 foreach(_comp ${lapkt_FIND_COMPONENTS})
-  if (NOT ";${_supported_components};" MATCHES _comp)
+  if (NOT ";${_supported_components};" MATCHES ";${_comp};")
     set(lapkt_FOUND False)
     set(lapkt_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
   endif()

@@ -4,7 +4,7 @@ file(MAKE_DIRECTORY
 
 add_custom_target(copy_package
     COMMAND ${CMAKE_COMMAND} -E copy_directory 
-    ${CMAKE_CURRENT_SOURCE_DIR}/_package
+    ${CMAKE_CURRENT_SOURCE_DIR}/_pip_installable_pkg
     ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/
 )
 

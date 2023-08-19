@@ -1,3 +1,3 @@
 add_subdirectory(core)
 add_subdirectory(extensions)
-add_subdirectory(python)
+add_subdirectory(python_pkg)

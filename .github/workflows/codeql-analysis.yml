@@ -109,7 +109,7 @@ jobs:
         cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
-      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_pip_installable_pkg
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
