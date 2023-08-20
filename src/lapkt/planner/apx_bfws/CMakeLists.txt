@@ -1,6 +1,7 @@
 target_sources(core
     PRIVATE
     approximate_bfws.cxx
+    approximate_bfws.hxx
 )
 
 install(

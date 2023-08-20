@@ -402,10 +402,10 @@ float Approximate_BFWS::do_anytime(Anytime_RWA &engine)
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
 
 //---------------------------------------------------------------------------//
-void Approximate_BFWS::solve()
+void Approximate_BFWS::solve(aptk::STRIPS_Problem* prob)
 {
 
-  aptk::STRIPS_Problem *prob = instance();
+  m_problem = prob;
 
   Fwd_Search_Problem search_prob(prob);
 

@@ -12,6 +12,7 @@ public:
 
   virtual void setup(){};
   virtual void solve(){};
+  virtual void solve(aptk::STRIPS_Problem* prob){};
   
   void print_action(int index);
   void print_fluents();

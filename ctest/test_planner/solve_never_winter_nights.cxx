@@ -44,6 +44,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <lapkt/planner/apx_bfws/approximate_bfws.hxx>
+#include <lapkt/planner/anytime_lapkt/anytime_lapkt.hxx>
 
 /**
  * @brief A functional test of the interface to generate a STRIP_Problem
@@ -87,7 +88,20 @@ TEST_CASE("Solving Never Winter Nights!")
 
   std::cout << "END TEST_CASE(Assembling Never Winter Nights)" << std::endl;
 
-  Approximate_BFWS planner;
+  std::cout << "BEGIN TEST_CASE(Solving Never Winter Nights)" << std::endl;
+
+  std::vector<Planner*> test_planners;
+
+  test_planners.push_back(new Approximate_BFWS());
+  test_planners.push_back(new AT_LAPKT_Planner());
 
 
+  for(auto& planner: test_planners){
+    planner->solve(&plan_prob);
+
+    delete planner;
+    planner = nullptr;
+  }
+
+  std::cout << "END TEST_CASE(Solving Never Winter Nights)" << std::endl;
 }

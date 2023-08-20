@@ -41,6 +41,8 @@
 #include <toy_graph.hxx>
 #include <catch2/catch_test_macros.hpp>
 
+#include <lapkt/planner/apx_bfws/approximate_bfws.hxx>
+#include <lapkt/planner/anytime_lapkt/anytime_lapkt.hxx>
 /**
  * @brief A functional test of the interface to generate a STRIP_Problem
  * instance using a graph. We reuse the code from the example -
@@ -50,7 +52,7 @@
 TEST_CASE("Solving a toy graph")
 {
 
-  std::cout << "BEGIN TEST_CASE(Assembling a STRIPS_Problem)" << std::endl;
+  std::cout << "BEGIN TEST_CASE(Assembling Toy Graph)" << std::endl;
 
   // MRJ: We create our graph
   Graph g;
@@ -126,7 +128,24 @@ TEST_CASE("Solving a toy graph")
   // MRJ: And now we set the initial and goal states of prob
   aptk::STRIPS_Problem::set_init(prob, I);
   aptk::STRIPS_Problem::set_goal(prob, G);
-  std::cout << "END TEST_CASE(Assembling a STRIPS_Problem)" << std::endl;
+  std::cout << "END TEST_CASE(Assembling Toy Graph)" << std::endl;
 
-  
+  std::cout << "BEGIN TEST_CASE(Solving Toy Graph)" << std::endl;
+
+  std::vector<std::pair<std::string, Planner*>> test_planners;
+
+  test_planners.push_back(std::make_pair<>("ApxBFWS", new Approximate_BFWS()));
+  test_planners.push_back(std::make_pair<>("AtLapkt", new AT_LAPKT_Planner()));
+
+  for(auto& planner: test_planners)
+  {
+    SECTION("Solving with " + planner.first) {
+      planner.second->solve(&prob);
+
+      delete planner.second;
+      planner.second = nullptr;
+    }
+  }
+
+  std::cout << "END TEST_CASE(Solving Toy Graph)" << std::endl;
 }
