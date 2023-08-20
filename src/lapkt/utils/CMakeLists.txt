@@ -28,9 +28,12 @@ install(
         bit_matrix.hxx
         bit_set.hxx
         bit_square_matrix.hxx
+        bloomfilter.hxx
         ext_math.hxx
+        hash_functions.hxx
         hash_table.hxx
         jenkins_12bit.hxx
+        math_utility.hxx
         memory.hxx
         resources_control.hxx
         sliding_window.hxx
