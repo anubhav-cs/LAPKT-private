@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define __NWN_HXX__
 
 #include <toy_graph.hxx>
-#include <strips_prob.hxx>
+#include <lapkt/model/strips_prob.hxx>
 
 // This class produces a planning domain
 // similar to those one can ellicit from NWN areas and modules

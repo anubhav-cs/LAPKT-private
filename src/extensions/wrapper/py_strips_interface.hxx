@@ -31,9 +31,9 @@
 #define __PY_FOD_PROBLEM__
 #define BOOST_BIND_GLOBAL_PLACEHOLDERS
 
-#include <strips_prob.hxx>
-#include <fluent.hxx>
-#include <action.hxx>
+#include <lapkt/model/strips_prob.hxx>
+#include <lapkt/model/fluent.hxx>
+#include <lapkt/model/action.hxx>
 #include <pybind11/pybind11.h>
 #include <string>
 #include <set>

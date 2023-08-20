@@ -11,7 +11,8 @@
         // "-DCMAKE_GENERATOR='Unix Makefiles'", // Default
         // "-DCMAKE_GENERATOR='MinGW Makefiles'", // Windows
         "-DCMAKE_STATIC_BOOST=ON",  // Default: ON
-        "-DBUILD_CPP_TESTS=ON",  // Default: ON
+        "-DBUILD_CPP_TESTS=ON",  // Default: OFF
+        "-DBUILD_PYTHON_PKG=ON" // Default:OFF
         // By default cmake would link to the latest version of the python library
         // "-DPY_VERSION=3.9" // Configure the build for a specific version
     ],

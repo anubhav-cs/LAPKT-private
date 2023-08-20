@@ -11,7 +11,7 @@ target_sources(wrapper
 #         py_strips_interface.hxx
 #         h_1_callback.hxx
 #     DESTINATION
-#         ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/extension
+#         ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/lapkt/extension
 #     COMPONENT
 #         lapkt EXCLUDE_FROM_ALL
 # )

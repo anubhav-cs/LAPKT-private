@@ -1,0 +1,90 @@
+# Algorithms to evaluate a node
+add_subdirectory(node_eval)
+
+target_sources(core
+    PRIVATE
+        closed_list.hxx
+        open_list.hxx
+        reachability.cxx
+        reachability.hxx
+        at_bfs.hxx
+        at_bfs_dq.hxx
+        at_bfs_dq_mh.hxx
+        at_gbfs.hxx
+        at_gbfs_3h.hxx
+        at_rwbfs_dq.hxx
+        at_rwbfs_dq_mh.hxx
+        at_wbfs.hxx
+        at_wbfs_dq.hxx
+        at_wbfs_dq_mh.hxx
+        brfs.hxx
+        das.hxx
+        dfs_plus.hxx
+        ff_ehc.hxx
+        ff_gbfs.hxx
+        iw.hxx
+        rp_iw.hxx
+        serialized_search.hxx
+        siw.hxx
+        siw_plus.hxx
+        approx_novelty_bfws_2h_consistency_M.hxx
+        approx_novelty_bfws_2h_consistency.hxx
+        approx_novelty_bfws_2h_M.hxx
+        approx_novelty_bfws_2h.hxx
+        approx_novelty_bfws_4h.hxx
+        approx_novelty_rp_iw.hxx
+        approx_novelty_serialized_search.hxx
+        approx_novelty_siw_plus.hxx
+        approx_novelty_siw.hxx
+        approx_novelty_dfs_plus.hxx
+        approx_novelty_iw.hxx
+)
+
+install(
+    FILES
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_bfs.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_bfs_dq.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_bfs_dq_mh.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_gbfs.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_gbfs_3h.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_rwbfs_dq.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_rwbfs_dq_mh.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_wbfs.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_wbfs_dq.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/at_wbfs_dq_mh.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/brfs.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/bfws_2h.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/bfws_4h.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/bfws_2h_M.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/bfws_2h_consistency.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/bfws_2h_consistency_M.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/ipc2014_rwa.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/das.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/dfs_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/ff_ehc.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/ff_gbfs.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/iw.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/rp_iw.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/serialized_search.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/siw.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/siw_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_bfws_2h_consistency_M.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_bfws_2h_consistency.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_bfws_2h_M.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_bfws_2h.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_bfws_4h.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_rp_iw.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_serialized_search.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_siw_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_siw.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_dfs_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/approx_novelty_iw.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/new_node_comparer.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/closed_list.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/open_list.hxx
+        ${PROJECT_SOURCE_DIR}/src/lapkt/engine/reachability.hxx
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/lapkt/engine
+    COMPONENT
+        lapkt 
+)

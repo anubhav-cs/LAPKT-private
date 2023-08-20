@@ -1,0 +1,47 @@
+target_sources(core 
+  PRIVATE
+    action.cxx
+    cond_eff.cxx
+    conj_comp_prob.cxx
+    fl_conj.cxx
+    fluent.cxx
+    fwd_search_prob.cxx
+    mutex_set.cxx
+    strips_prob.cxx
+    strips_state.cxx
+    succ_gen.cxx
+    action.hxx
+    cond_eff.hxx
+    conj_comp_prob.hxx
+    fl_conj.hxx
+    fluent.hxx
+    fwd_search_prob.hxx
+    mutex_set.hxx
+    strips_prob.hxx
+    strips_state.hxx
+    search_prob.hxx
+    succ_gen.hxx
+    match_tree.cxx
+    watched_lit_succ_gen.cxx
+)
+
+install(
+  FILES
+    action.hxx
+    cond_eff.hxx
+    conj_comp_prob.hxx
+    fl_conj.hxx
+    fluent.hxx
+    fwd_search_prob.hxx
+    mutex_set.hxx
+    strips_prob.hxx
+    strips_state.hxx
+    search_prob.hxx
+    succ_gen.hxx
+    match_tree.hxx
+    watched_lit_succ_gen.hxx
+  DESTINATION
+    ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/lapkt/model
+  COMPONENT
+    lapkt 
+)

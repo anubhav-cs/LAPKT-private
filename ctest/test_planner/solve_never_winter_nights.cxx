@@ -33,17 +33,17 @@
  *
  */
 
-#include <strips_prob.hxx>
-#include <fluent.hxx>
-#include <action.hxx>
-#include <cond_eff.hxx>
+#include <lapkt/model/strips_prob.hxx>
+#include <lapkt/model/fluent.hxx>
+#include <lapkt/model/action.hxx>
+#include <lapkt/model/cond_eff.hxx>
 // #include <sstream>
 #include <iostream>
 #include <fstream>
 #include <nwn.hxx>
 #include <catch2/catch_test_macros.hpp>
 
-#include <approximate_bfws.hxx>
+#include <lapkt/planner/apx_bfws/approximate_bfws.hxx>
 
 /**
  * @brief A functional test of the interface to generate a STRIP_Problem

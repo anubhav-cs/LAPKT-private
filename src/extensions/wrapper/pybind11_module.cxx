@@ -28,11 +28,11 @@
  */
 
 #include <py_strips_interface.hxx>
-#include <h_1.hxx>
+#include <lapkt/engine/node_eval/heuristic/h_1.hxx>
 #include <h_1_callback.hxx>
-#include <strips_prob.hxx>
-#include <fwd_search_prob.hxx>
-#include <strips_prob.hxx>
+#include <lapkt/model/strips_prob.hxx>
+#include <lapkt/model/fwd_search_prob.hxx>
+#include <lapkt/model/strips_prob.hxx>
 
 namespace py = pybind11;
 

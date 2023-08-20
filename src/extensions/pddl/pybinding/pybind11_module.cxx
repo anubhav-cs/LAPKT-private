@@ -29,7 +29,7 @@
 
 #include <py_strips_interface.hxx>
 #include <tarski_instantiator.hxx>
-#include <strips_prob.hxx>
+#include <lapkt/model/strips_prob.hxx>
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;

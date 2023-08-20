@@ -33,10 +33,10 @@
  *
  */
 
-#include <strips_prob.hxx>
-#include <fluent.hxx>
-#include <action.hxx>
-#include <cond_eff.hxx>
+#include <lapkt/model/strips_prob.hxx>
+#include <lapkt/model/fluent.hxx>
+#include <lapkt/model/action.hxx>
+#include <lapkt/model/cond_eff.hxx>
 // #include <sstream>
 #include <iostream>
 #include <fstream>

@@ -34,7 +34,7 @@ install(
         ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/tarski/tarski_util.py
         ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/tarski/__init__.py 
     DESTINATION
-        ${REL_PYPI_LAPKT_ROOT}/pddl/tarski
+        ${PYTHON_PKG_PATH}/site_package/lapkt/pddl/tarski
     COMPONENT 
         PYPACKAGE EXCLUDE_FROM_ALL
 )

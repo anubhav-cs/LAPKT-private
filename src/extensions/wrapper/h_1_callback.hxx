@@ -1,7 +1,7 @@
 #ifndef __H_1__INTERACTIVE__
 #define __H_1__INTERACTIVE__
 
-#include <h_1.hxx>
+#include <lapkt/engine/node_eval/heuristic/h_1.hxx>
 #include <sstream>
 #include <pybind11/pybind11.h>
 // #include <pybind11/embed.h> // everything needed for embedding

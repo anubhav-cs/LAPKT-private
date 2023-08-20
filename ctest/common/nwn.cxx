@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include <nwn.hxx>
-#include <action.hxx>
+#include <lapkt/model/action.hxx>
 #include <cstdlib>
 #include <sstream>
 #include <fstream>

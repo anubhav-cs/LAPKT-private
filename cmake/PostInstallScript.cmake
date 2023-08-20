@@ -3,7 +3,7 @@ message(STATUS "\n# x-x-x-x POST-INSTALL THINGS BEGIN HERE x-x-x-x #\n")
 find_package(Python3 COMPONENTS Interpreter Development)
 if(${Python3_VERSION} VERSION_LESS 3.8.0)
     message(SEND_ERROR 
-        "INCOMPATIBLE PYTHON VERSION, expected >3.6.x but found - " 
+        "INCOMPATIBLE PYTHON VERSION, expected >=3.8.x but found - " 
         ${Python3_VERSION})
 endif()
 
