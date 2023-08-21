@@ -62,15 +62,9 @@ jobs:
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
-        -DUSE_SUPERBUILD=ON
-        -DCMAKE_FD=OFF
-        -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=ON
-        -DCMAKE_DOXYGEN_FLAT_THEME=ON
-        -DCMAKE_DOXYGEN_AWESOME_THEME=ON
-        -DCMAKE_SPHINX_DOCS=ON
         -DCMAKE_STATIC_BOOST=ON
         -DBUILD_CPP_TESTS=ON
+        -DBUILD_PYTHON_PKG=ON
         -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
@@ -157,15 +151,9 @@ jobs:
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
-        -DUSE_SUPERBUILD=ON
-        -DCMAKE_FD=OFF
-        -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=OFF
-        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-        -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DBUILD_CPP_TESTS=ON
+        -DBUILD_PYTHON_PKG=ON
         -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
@@ -239,15 +227,9 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DCMAKE_GENERATOR="MinGW Makefiles"
-        -DUSE_SUPERBUILD=ON
-        -DCMAKE_FD=OFF
-        -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=OFF
-        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-        -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DBUILD_CPP_TESTS=ON
+        -DBUILD_PYTHON_PKG=ON
         -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
@@ -335,15 +317,9 @@ jobs:
 #         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 #         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
 #         -DCMAKE_GENERATOR="Unix Makefiles"
-#         -DUSE_SUPERBUILD=ON
-#         -DCMAKE_FD=OFF
-#         -DCMAKE_TARSKI=ON
-#         -DCMAKE_DOXYGEN_DOCS=OFF
-#         -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-#         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-#         -DCMAKE_SPHINX_DOCS=OFF
 #         -DCMAKE_STATIC_BOOST=ON
 #         -DBUILD_CPP_TESTS=ON
+#         -DBUILD_PYTHON_PKG=ON
 #         -DCMAKE_C_FLAGS="-target arm64-apple-macos11"
 #         -DPY_VERSION="${{ matrix.py_version }}"
 
@@ -437,15 +413,9 @@ jobs:
   #       -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
   #       -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
   #       -DCMAKE_GENERATOR="Unix Makefiles"
-  #       -DUSE_SUPERBUILD=ON
-  #       -DCMAKE_FD=OFF
-  #       -DCMAKE_TARSKI=ON
-  #       -DCMAKE_DOXYGEN_DOCS=OFF
-  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-  #       -DCMAKE_SPHINX_DOCS=OFF
   #       -DCMAKE_STATIC_BOOST=ON
   #       -DBUILD_CPP_TESTS=ON
+  #       -DBUILD_PYTHON_PKG=ON
   #       -DPY_VERSION="${{ matrix.py_version }}"
 
   #   - name: Build
@@ -532,15 +502,9 @@ jobs:
   #       -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
   #       -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
   #       -DCMAKE_GENERATOR="Unix Makefiles"
-  #       -DUSE_SUPERBUILD=ON
-  #       -DCMAKE_FD=OFF
-  #       -DCMAKE_TARSKI=ON
-  #       -DCMAKE_DOXYGEN_DOCS=OFF
-  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-  #       -DCMAKE_SPHINX_DOCS=OFF
   #       -DCMAKE_STATIC_BOOST=ON
   #       -DBUILD_CPP_TESTS=ON
+  #       -DBUILD_PYTHON_PKG=ON
   #       -DPY_VERSION="${{ matrix.py_version }}"
 
   #   - name: Build
@@ -625,15 +589,9 @@ jobs:
   #       -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
   #       -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
   #       -DCMAKE_GENERATOR="Unix Makefiles"
-  #       -DUSE_SUPERBUILD=ON
-  #       -DCMAKE_FD=OFF
-  #       -DCMAKE_TARSKI=ON
-  #       -DCMAKE_DOXYGEN_DOCS=OFF
-  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-  #       -DCMAKE_SPHINX_DOCS=OFF
   #       -DCMAKE_STATIC_BOOST=ON
   #       -DBUILD_CPP_TESTS=ON
+  #       -DBUILD_PYTHON_PKG=ON
   #       -DPY_VERSION="${{ matrix.py_version }}"
 
   #   - name: Build
@@ -715,4 +673,4 @@ jobs:
         user: __token__
         password: ${{ secrets.PYPI_TEST_API_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
-        packages_dir: dist
+        packages-dir: dist

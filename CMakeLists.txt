@@ -108,6 +108,7 @@ if(BUILD_PYTHON_PKG)
     set(Python_FIND_FRAMEWORK "FIRST")
     set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
   endif(MACOS_BUILD)
+  
   if(NOT DEFINED PY_VERSION)
     find_package(Python COMPONENTS Interpreter Development)
   else()
@@ -330,6 +331,10 @@ target_link_libraries(core PRIVATE
   ${Boost_LIBRARIES}
 )
 
+target_include_directories(core BEFORE PRIVATE
+  ${Boost_INCLUDE_DIRS}
+)
+
 # set_target_properties(core PROPERTIES
 #     #### @todo - Doesn't work in Windows(MINGW)
 #   LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${REL_CORE_LIB_DIR}
@@ -549,12 +554,6 @@ if(BUILD_PYTHON_PKG)
       DESTINATION ${PYTHON_PKG_PATH}
       COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
   )
-
-  # install(PROGRAMS
-  #     ${PROJECT_SOURCE_DIR}/src/python_pkg/lapkt.py
-  #     DESTINATION ${CMAKE_SOURCE_DIR}/standalone_pkg
-  #     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
-  # )
 
   install(PROGRAMS
   ${PROJECT_SOURCE_DIR}/src/python_pkg/lapkt.py
