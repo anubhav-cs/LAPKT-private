@@ -331,7 +331,7 @@ target_link_libraries(core PRIVATE
   ${Boost_LIBRARIES}
 )
 
-target_include_directories(core BEFORE PRIVATE
+target_include_directories(core BEFORE PUBLIC
   ${Boost_INCLUDE_DIRS}
 )
 
