@@ -64,7 +64,7 @@ endif()
 list(APPEND BUILD_COMMAND
     # --user-config=${DEPS_BUILD_DIR}/boost/user-config.jam
     --build-dir=${DEPS_BUILD_DIR}/boost/build
-    --with-program_options --with-random
+    --with-program_options --with-random --with-headers
     --prefix=${DEPS_INSTALL_PREFIX}/boost install
     cxxflags=-fPIC cflags=-fPIC 
     # toolset=gcc link=shared

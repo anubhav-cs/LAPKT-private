@@ -218,13 +218,14 @@ message(STATUS "BOOST_PYTHON_STATIC_LIB is ${BOOST_PYTHON_STATIC_LIB}")
 list(APPEND Boost_Required_Components
   program_options
   random
+  headers
 )
 find_package(Boost 
   REQUIRED COMPONENTS ${Boost_Required_Components} 
   # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
   # PATHS ${Boost_ROOT} 
   # NO_DEFAULT_PATH
-  )
+)
 message(STATUS "THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 
 #---- Catch2 ----#
@@ -327,12 +328,8 @@ endif()
 add_library(core SHARED)
 add_library(lapkt::core ALIAS core)
 
-target_link_libraries(core PRIVATE
+target_link_libraries(core PUBLIC
   ${Boost_LIBRARIES}
-)
-
-target_include_directories(core BEFORE PUBLIC
-  ${Boost_INCLUDE_DIRS}
 )
 
 # set_target_properties(core PROPERTIES
