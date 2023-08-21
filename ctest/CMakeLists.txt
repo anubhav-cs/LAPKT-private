@@ -5,6 +5,7 @@ add_executable(cpp_unit_test)
 target_link_libraries(cpp_unit_test PRIVATE
     Catch2::Catch2WithMain
     core
+    Boost::boost
 )
 
 # post-build event - Since RPATH can't be used in windows

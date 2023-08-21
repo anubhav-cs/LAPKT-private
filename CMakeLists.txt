@@ -328,7 +328,7 @@ endif()
 add_library(core SHARED)
 add_library(lapkt::core ALIAS core)
 
-target_link_libraries(core PUBLIC
+target_link_libraries(core PRIVATE
   ${Boost_LIBRARIES}
 )
 
@@ -357,8 +357,9 @@ if(BUILD_PYTHON_PKG)
     INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" #@todo CHECK THIS FOR MACOS
   )
 
-  target_link_libraries(wrapper PUBLIC
+  target_link_libraries(wrapper PRIVATE
     core
+    Boost::boost
   )
 
   #---- Translate PDDL ----#
@@ -374,6 +375,7 @@ if(BUILD_PYTHON_PKG)
   target_link_libraries(pddl PRIVATE
     core
     wrapper
+    Boost::boost
   )
 
   #---- Planner ----#
@@ -391,6 +393,7 @@ if(BUILD_PYTHON_PKG)
   target_link_libraries(planner PRIVATE
     core
     pybind11::pybind11
+    Boost::boost
   )
 endif() # BUILD_PYTHON_PKG
 
@@ -408,6 +411,17 @@ endif()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #----------- SECTION 4.0  INSTALL CXXLIBS -----------#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+
+# install boost headers
+
+install(
+  DIRECTORY
+  ${Boost_INCLUDE_DIRS}/
+  DESTINATION
+    ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/
+  COMPONENT
+    lapkt
+)
 
 # core
 install(TARGETS core 
