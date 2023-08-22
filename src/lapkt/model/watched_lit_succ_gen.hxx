@@ -54,6 +54,8 @@ namespace aptk
 
 		void init();
 
+		void reset();
+
 		unsigned filter(std::function<bool(Action *)> is_mutex);
 
 		const std::vector<watcher> &operator[](unsigned f) const

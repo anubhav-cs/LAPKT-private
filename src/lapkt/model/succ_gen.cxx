@@ -134,6 +134,15 @@ namespace aptk
 			std::cout << "Successor generator built, with " << m_nodes.size() << " nodes" << std::endl;
 		}
 
+		void Successor_Generator::reset()
+		{
+			for (unsigned k = 0; k < m_nodes.size(); k++)
+			{
+				delete m_nodes[k];
+			}
+			m_nodes.clear();
+		}
+
 		void Successor_Generator::retrieve_applicable(const State &s, std::vector<int> &actions) const
 		{
 			std::deque<const Node *> open;

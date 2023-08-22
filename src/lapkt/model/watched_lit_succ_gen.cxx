@@ -11,6 +11,11 @@ namespace aptk
 	{
 	}
 
+	void WatchedLitSuccGen::reset() {
+		watchers.clear();
+		state_fixpoint.reset();
+	}
+
 	void WatchedLitSuccGen::init()
 	{
 		state_fixpoint = std::make_shared<State>(prob);

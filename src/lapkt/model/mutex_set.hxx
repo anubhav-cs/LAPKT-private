@@ -21,6 +21,8 @@ namespace aptk
 			Mutex_Set(const STRIPS_Problem &prob);
 			~Mutex_Set();
 
+			void reset();
+
 			bool are_mutex(unsigned p, unsigned q) const;
 			bool action_edeletes(const Action *a, unsigned p) const;
 			bool cond_eff_edeletes(const Action *a, unsigned eff, unsigned p) const;

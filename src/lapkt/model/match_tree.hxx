@@ -97,9 +97,13 @@ namespace aptk
 		public:
 			Match_Tree(const STRIPS_Problem &prob) : m_problem(prob) {}
 
-			~Match_Tree() { delete root_node; };
+			~Match_Tree() { delete root_node; }
 
 			void build();
+
+			/// @brief reset the members to the initial state
+			void reset() { delete root_node; }
+			
 			void retrieve_applicable(const State &s, std::vector<int> &actions) const;
 			int count() { return root_node->count(); }
 			void dump() { root_node->dump("", m_problem); }

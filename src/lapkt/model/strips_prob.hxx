@@ -191,6 +191,9 @@ namespace aptk
 
 		static void make_delete_relaxation(const STRIPS_Problem &orig, STRIPS_Problem &relaxed);
 
+		/// @brief reset all the data structures to their initial state
+		void reset();
+
 		Fluent_Ptr_Vec &fluents() { return m_fluents; }
 		Action_Ptr_Vec &actions() { return m_actions; }
 		const std::vector<const Fluent *> &

@@ -133,6 +133,8 @@ namespace aptk
 
 			void build();
 
+			void reset();
+
 			void retrieve_applicable(const State &s, std::vector<const Action *> &actions) const;
 			void retrieve_applicable(const State &s, std::vector<int> &actions) const;
 			void retrieve_applicable(const std::vector<float> &v, std::vector<const Action *> &actions) const;

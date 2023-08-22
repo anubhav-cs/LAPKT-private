@@ -18,6 +18,12 @@ namespace aptk
 		Mutex_Set::~Mutex_Set()
 		{
 		}
+		
+		void Mutex_Set::reset()
+		{
+			m_mutex_groups.clear();
+			m_mutex_groups_bitmap.clear();
+		}
 
 		bool
 		Mutex_Set::are_mutex(unsigned p, unsigned q) const

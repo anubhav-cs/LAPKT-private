@@ -46,6 +46,50 @@ namespace aptk
 	{
 	}
 
+	void STRIPS_Problem::reset()
+	{
+		m_domain_name = "";
+		m_problem_name = "";
+		m_num_fluents = 0;
+		m_num_actions = 0;
+		m_end_operator_id = no_such_index;
+		m_dummy_goal_id = no_such_index;
+		m_succ_gen.reset();
+		m_succ_gen_v2.reset();
+		m_mutexes.reset();
+		m_succ_gen_v3.reset();
+
+		for(auto& action: m_actions)
+		{
+			delete action;
+			action = nullptr;
+		}
+		m_actions.clear();
+		m_const_actions.clear();
+
+		for(auto& fluent: m_fluents)
+		{
+			delete fluent;
+			fluent = nullptr;
+		}
+		m_fluents.clear();
+		m_const_fluents.clear();
+		m_init.clear();
+		m_goal.clear();
+		m_adding.clear();
+		m_requiring.clear();
+		m_deleting.clear();
+		m_edeleting.clear();
+		m_in_init.clear();
+		m_in_goal.clear();
+		m_fluents_map.clear();
+		m_empty_precs.clear();
+		m_ceffs_adding.clear();
+		m_effects.clear();
+		m_triggers.clear();
+		m_relevant_effects.clear();
+	}
+
 	void STRIPS_Problem::make_action_tables(bool generate_match_tree)
 	{
 		m_gen_match_tree = generate_match_tree;
