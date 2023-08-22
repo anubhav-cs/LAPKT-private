@@ -123,41 +123,41 @@ TEST_CASE("Testing shared_ptr of STRIPS_Problem object")
 
   std::cout << "Testing shared_ptr of STRIPS_Problem object: Resetting pointer" 
     << std::endl;
-  // prob.reset();
+  prob.reset();
 
   std::cout << "Testing shared_ptr of STRIPS_Problem object: Initialize new ptr" 
     << std::endl;
-  auto prob2 = std::make_unique<aptk::STRIPS_Problem>();
+  prob = std::make_unique<aptk::STRIPS_Problem>();
   
-  // std::cout << "BEGIN TEST_CASE(Assembling Never Winter Nights)" << std::endl;
+  std::cout << "BEGIN TEST_CASE(Assembling Never Winter Nights)" << std::endl;
 
-  // int dim = 5;
-  // float block_prob = 0.1f;
-  // int n_items = 4;
-  // int n_goal_items = 2;
-  // int n_goal_locs = 1;
-  // float W_0 = 5.0f;
-  // float decay = 0.75f;
+  int dim = 5;
+  float block_prob = 0.1f;
+  int n_items = 4;
+  int n_goal_items = 2;
+  int n_goal_locs = 1;
+  float W_0 = 5.0f;
+  float decay = 0.75f;
 
-  // NWN_Mockup fake_nwn_situation;
+  NWN_Mockup fake_nwn_situation;
 
-  // fake_nwn_situation.setup_nav_graph(dim, dim, block_prob);
-  // fake_nwn_situation.add_items(n_items);
-  // fake_nwn_situation.build_strips_problem(n_goal_items, n_goal_locs, *prob);
+  fake_nwn_situation.setup_nav_graph(dim, dim, block_prob);
+  fake_nwn_situation.add_items(n_items);
+  fake_nwn_situation.build_strips_problem(n_goal_items, n_goal_locs, *prob);
 
-  // std::cout << "Dumping STRIPS problem on file 'problem.strips'" << std::endl;
-  // std::ofstream outstream("problem.strips");
-  // prob->print(outstream);
-  // outstream.close();
-  // std::cout << "Problem statistics:" << std::endl;
-  // std::cout << "\t# Fluents: " << prob->num_fluents() << std::endl;
-  // std::cout << "\t# Actions: " << prob->num_actions() << std::endl;
-  // std::cout << "Initial state: " << std::endl;
-  // prob->print_fluent_vec(std::cout, prob->init());
-  // std::cout << std::endl;
-  // std::cout << "Goal state: " << std::endl;
-  // prob->print_fluent_vec(std::cout, prob->goal());
-  // std::cout << std::endl;
+  std::cout << "Dumping STRIPS problem on file 'problem.strips'" << std::endl;
+  std::ofstream outstream("problem.strips");
+  prob->print(outstream);
+  outstream.close();
+  std::cout << "Problem statistics:" << std::endl;
+  std::cout << "\t# Fluents: " << prob->num_fluents() << std::endl;
+  std::cout << "\t# Actions: " << prob->num_actions() << std::endl;
+  std::cout << "Initial state: " << std::endl;
+  prob->print_fluent_vec(std::cout, prob->init());
+  std::cout << std::endl;
+  std::cout << "Goal state: " << std::endl;
+  prob->print_fluent_vec(std::cout, prob->goal());
+  std::cout << std::endl;
 
-  // std::cout << "END TEST_CASE(Assembling Never Winter Nights)" << std::endl;
+  std::cout << "END TEST_CASE(Assembling Never Winter Nights)" << std::endl;
 }

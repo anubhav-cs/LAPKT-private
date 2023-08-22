@@ -102,7 +102,7 @@ namespace aptk
 			void build();
 
 			/// @brief reset the members to the initial state
-			void reset() { delete root_node; }
+			void reset() { delete root_node; root_node = nullptr; }
 			
 			void retrieve_applicable(const State &s, std::vector<int> &actions) const;
 			int count() { return root_node->count(); }
@@ -110,7 +110,7 @@ namespace aptk
 
 		private:
 			const STRIPS_Problem &m_problem;
-			BaseNode *root_node;
+			BaseNode *root_node = nullptr;
 		};
 
 	}

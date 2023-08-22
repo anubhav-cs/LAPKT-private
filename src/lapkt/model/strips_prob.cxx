@@ -44,6 +44,7 @@ namespace aptk
 
 	STRIPS_Problem::~STRIPS_Problem()
 	{
+		reset();
 	}
 
 	void STRIPS_Problem::reset()
@@ -54,6 +55,8 @@ namespace aptk
 		m_num_actions = 0;
 		m_end_operator_id = no_such_index;
 		m_dummy_goal_id = no_such_index;
+		m_has_cond_effs = false;
+
 		m_succ_gen.reset();
 		m_succ_gen_v2.reset();
 		m_mutexes.reset();
@@ -74,6 +77,7 @@ namespace aptk
 		}
 		m_fluents.clear();
 		m_const_fluents.clear();
+
 		m_init.clear();
 		m_goal.clear();
 		m_adding.clear();
@@ -105,9 +109,9 @@ namespace aptk
 		if (generate_match_tree)
 		{
 			m_succ_gen_v2.build();
-			if (m_verbose)
-				std::cout << "\n Match tree built with " << m_succ_gen_v2.count() << " nodes.\n"
-									<< std::endl;
+			// if (m_verbose)
+			// 	std::cout << "\n Match tree built with " << m_succ_gen_v2.count() << " nodes.\n"
+			// 						<< std::endl;
 		}
 		else
 			m_succ_gen_v3.init();
